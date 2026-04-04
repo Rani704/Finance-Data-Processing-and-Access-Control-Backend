@@ -60,23 +60,29 @@ npm start
 The server runs at http://localhost:5000.
 
 API Endpoints
-Authentication
-Method	Endpoint	Description	Body Example:
-POST	/api/auth/register	Register a new user	{ "name": "Reetika", "email": "rani@test.com", "password": "123456", "role": "admin" }
+- Authentication
+| Method | Endpoint             | Description                 | Body Example                                                                                |
+| ------ | -------------------- | --------------------------- | ------------------------------------------------------------------------------------------- |
+| POST   | `/api/auth/register` | Register a new user         | `{ "name": "Rani", "email": "rani@test.com", "password": "123456", "role": "admin" }` |
+| POST   | `/api/auth/login`    | Login and receive JWT token | `{ "email": "rani@test.com", "password": "123456" }`                                     |
 
-POST	/api/auth/login	Login and receive JWT token	{ "email": "rani@test.com", "password": "123456" }
 
-Financial Records
-Method	Endpoint	Description	Body Example
-POST	/api/records	Create a financial record	{ "amount": 2000, "type": "income", "category": "salary", "note": "April Salary", "date": "2026-04-04" }
-GET	/api/records	Fetch all records	N/A
-PUT	/api/records/:id	Update a record by ID	{ "amount": 2500, "note": "Updated salary" }
-DELETE	/api/records/:id	Delete a record by ID	N/A
-Dashboard Summary
-Method	Endpoint	Description
-GET	/api/dashboard/summary	Total income, expenses, and net balance
-GET	/api/dashboard/category	Income/expense breakdown by category
-Swagger Documentation
+- Financial Records
+| Method | Endpoint           | Description               | Body Example                                                                                               |
+| ------ | ------------------ | ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| POST   | `/api/records`     | Create a financial record | `{ "amount": 2000, "type": "income", "category": "salary", "note": "April Salary", "date": "2026-04-04" }` |
+| GET    | `/api/records`     | Fetch all records         | N/A                                                                                                        |
+| PUT    | `/api/records/:id` | Update a record by ID     | `{ "amount": 2500, "note": "Updated salary" }`                                                             |
+| DELETE | `/api/records/:id` | Delete a record by ID     | N/A                                                                                                        |
+
+
+- Dashboard Summary
+| Method | Endpoint                  | Description                             |
+| ------ | ------------------------- | --------------------------------------- |
+| GET    | `/api/dashboard/summary`  | Total income, expenses, and net balance |
+| GET    | `/api/dashboard/category` | Income/expense breakdown by category    |
+
+
 
 Interactive API documentation is available at:
 ```
