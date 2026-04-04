@@ -47,19 +47,25 @@ cd Finance-Data-Processing-and-Access-Control-Backend
 2. Install dependencies:
 npm install
 3. Create a .env file in the root folder with the following content:
+ ```  
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-4. Start the server:
+```
+5. Start the server:
+```
 npm start
+```
 
 The server runs at http://localhost:5000.
 
 API Endpoints
 Authentication
-Method	Endpoint	Description	Body Example
-POST	/api/auth/register	Register a new user	{ "name": "Reetika", "email": "reetika@test.com", "password": "123456", "role": "admin" }
-POST	/api/auth/login	Login and receive JWT token	{ "email": "reetika@test.com", "password": "123456" }
+Method	Endpoint	Description	Body Example:
+POST	/api/auth/register	Register a new user	{ "name": "Reetika", "email": "rani@test.com", "password": "123456", "role": "admin" }
+
+POST	/api/auth/login	Login and receive JWT token	{ "email": "rani@test.com", "password": "123456" }
+
 Financial Records
 Method	Endpoint	Description	Body Example
 POST	/api/records	Create a financial record	{ "amount": 2000, "type": "income", "category": "salary", "note": "April Salary", "date": "2026-04-04" }
@@ -73,31 +79,33 @@ GET	/api/dashboard/category	Income/expense breakdown by category
 Swagger Documentation
 
 Interactive API documentation is available at:
-
+```
 http://localhost:5000/api-docs
-
+```
 Swagger allows testing endpoints and viewing request/response structures.
 
 Authentication
 
 All protected routes require JWT authentication. Include the token in headers:
-
+```
 Authorization: Bearer <your_jwt_token>
-
+```
 Example:
-
+```
 GET /api/records
 Headers:
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
+```
 Assumptions
-Only Admin can manage users.
-Users can only manage their own financial records.
-MongoDB is used for persistence.
-No unit tests are implemented in this version.
-The project is for assessment purposes and is not production-ready.
+- Only Admin can manage users.
+- Users can only manage their own financial records.
+- MongoDB is used for persistence.
+- No unit tests are implemented in this version.
+- The project is for assessment purposes and is not production-ready.
+  
 Submission
-GitHub Repository: https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend
-Includes backend code and Swagger documentation.
+- GitHub Repository: https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend
+- Includes backend code and Swagger documentation.
 
 ---
 
