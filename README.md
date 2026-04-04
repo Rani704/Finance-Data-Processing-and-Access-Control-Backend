@@ -89,9 +89,9 @@ The server runs at http://localhost:5000.
 
 
 Interactive API documentation is available at:
-```
+
 http://localhost:5000/api-docs
-```
+
 Swagger allows testing endpoints and viewing request/response structures.
 
 Authentication
