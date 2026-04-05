@@ -55,7 +55,7 @@ http://localhost:5000/api-docs
 ---
 
 ## Folder Structure
-
+```
 
 finance-backend/
 ├─ server.js # Entry point
@@ -79,7 +79,7 @@ finance-backend/
 │ ├─ record.routes.js
 │ └─ dashboard.routes.js
 
-
+```
 ---
 
 ## Installation
@@ -99,10 +99,12 @@ npx nodemon server.js
 
 
 ## API Endpoints
+
 - Auth Routes
 Method	Endpoint	Description
 POST	/api/auth/register	Register a new user
 POST	/api/auth/login	Login and receive JWT
+
 - Record Routes
 Method	Endpoint	Description	Roles Allowed
 POST	/api/records	Create a financial record	admin, analyst
@@ -113,16 +115,19 @@ DELETE	/api/records/:id	Delete a record by ID	admin
 - Dashboard Routes
 Method	Endpoint	Description	Roles Allowed
 GET	/api/dashboard	Get summary statistics	admin, analyst, viewer
+
 Authorization
 All protected routes require JWT in the header:
 Authorization: Bearer <token>
 Access control is enforced via user roles.
-Notes
-PUT and DELETE operations require the record _id from the database.
-Swagger provides interactive testing for all endpoints.
-No unit tests are included in this version.
-Example JSON for Record
+```
+Notes:
+- PUT and DELETE operations require the record _id from the database.
+- Swagger provides interactive testing for all endpoints.
+- No unit tests are included in this version.
 
+Example JSON for Record:
+```
 POST /api/records
 
 {
@@ -133,6 +138,7 @@ POST /api/records
   "date": "2026-04-04"
 }
 Dashboard Example Response
+
 {
   "totalIncome": 40000,
   "totalExpense": 15000,
@@ -143,7 +149,7 @@ Dashboard Example Response
     { "category": "rent", "total": 10000 }
   ]
 }
-
+```
   
 Submission
 - GitHub Repository: https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend
