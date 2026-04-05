@@ -14,104 +14,136 @@ This backend project is a finance dashboard system that allows users to manage f
 
 ---
 
-## 🗂 Project Structure
+## Features
 
-```text
-finance-backend/
-├─ src/
-│ ├─ controllers/ # API logic for users and financial records
-│ ├─ models/ # Mongoose schemas for Users and Records
-│ ├─ routes/ # Express route definitions
-│ ├─ middlewares/ # JWT authentication and role-based access
-│ └─ app.js # Express app configuration
-├─ server.js # Server entry point
-├─ package.json
-├─ package-lock.json
-├─ README.md
+### User & Role Management
 
-```
-## User Roles & Permissions
-| Role    | Permissions |
-|---------|-------------|
-| Viewer  | View records and dashboard data only |
-| Analyst | View records and dashboard summaries |
-| Admin   | Full access to users and records |
+- **Register** and **login** users
+- Role-based access control:
+  - **Admin**: Full access (create/update/delete records, manage users)
+  - **Analyst**: Can view and update records
+  - **Viewer**: Read-only access to records and dashboard
+- JWT-based authentication
 
-## Setup Instructions
+### Financial Records
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend.git
-cd Finance-Data-Processing-and-Access-Control-Backend
-```
-2. Install dependencies:
-npm install
-3. Create a .env file in the root folder with the following content:
- ```  
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-5. Start the server:
-```
-npm start
-```
+- Create, read, update, and delete financial records
+- Record fields:
+  - `amount` (Number)
+  - `type` (`income` or `expense`)
+  - `category` (String)
+  - `note` (String, optional)
+  - `date` (Date)
+- Filtering by type, category, and date range
 
-The server runs at http://localhost:5000.
+### Dashboard Summaries
 
-## API Endpoints
+- Total income
+- Total expenses
+- Net balance
+- Category-wise breakdown
+- Monthly or weekly trends
 
-- Authentication
-```
-| Method | Endpoint             | Description                 | Body Example                                                                          |
-| ------ | -------------------- | --------------------------- | --------------------------------------------------------------------------------------|
-| POST   | /api/auth/register | Register a new user         | { "name": "Rani", "email": "rani@test.com", "password": "123456", "role": "admin" }     |
-| POST   | /api/auth/login    | Login and receive JWT token | { "email": "rani@test.com", "password": "123456" }                                      |
-```
+### API Documentation
 
-- Financial Records
- ```
-| Method | Endpoint         | Description               | Body Example                                                                                           |
-| ------ | -----------------| ------------------------- | -------------------------------------------------------------------------------------------------------|
-| POST   | /api/records     | Create a financial record | { "amount": 2000, "type": "income", "category": "salary", "note": "April Salary", "date": "2026-04-04" } |
-| GET    | /api/records     | Fetch all records         | N/A                                                                                                      |
-| PUT    | /api/records/:id | Update a record by ID     | { "amount": 2500, "note": "Updated salary" }                                                             |
-| DELETE | /api/records/:id | Delete a record by ID     | N/A                                                                                                      |
-```
-
-- Dashboard Summary
-```
-| Method | Endpoint                  | Description                          |
-| ------ | ------------------------- | -------------------------------------|
-| GET    | /api/dashboard/summary | Total income, expenses, and net balance |
-| GET    | /api/dashboard/category| Income/expense breakdown by category    |
-```
-
-
-Interactive API documentation is available at:
+- Swagger UI available at:  
 
 http://localhost:5000/api-docs
 
-Swagger allows testing endpoints and viewing request/response structures.
+- Interactive API testing supported
 
-Authentication
+---
 
-All protected routes require JWT authentication. Include the token in headers:
-```
-Authorization: Bearer <your_jwt_token>
-```
-Example:
-```
-GET /api/records
-Headers:
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
-```
-Assumptions
-- Only Admin can manage users.
-- Users can only manage their own financial records.
-- MongoDB is used for persistence.
-- No unit tests are implemented in this version.
-- The project is for assessment purposes and is not production-ready.
+## Folder Structure
+
+
+finance-backend/
+├─ server.js # Entry point
+├─ package.json
+├─ package-lock.json
+├─ src/
+│ ├─ app.js # Express app
+│ ├─ config/
+│ │ └─ swagger.js
+│ ├─ controllers/
+│ │ ├─ auth.controller.js
+│ │ ├─ record.controller.js
+│ │ └─ dashboard.controller.js
+│ ├─ middlewares/
+│ │ └─ auth.middleware.js
+│ ├─ models/
+│ │ ├─ user.model.js
+│ │ └─ record.model.js
+│ └─ routes/
+│ ├─ auth.routes.js
+│ ├─ record.routes.js
+│ └─ dashboard.routes.js
+
+
+---
+
+## Installation
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend.git
+cd Finance-Data-Processing-and-Access-Control-Backend
+Install dependencies:
+npm install
+Start MongoDB locally (or update MONGO_URI in server.js for your DB).
+Run the server:
+npm start
+# or for hot reload during development
+npx nodemon server.js
+
+
+## API Endpoints
+- Auth Routes
+Method	Endpoint	Description
+POST	/api/auth/register	Register a new user
+POST	/api/auth/login	Login and receive JWT
+- Record Routes
+Method	Endpoint	Description	Roles Allowed
+POST	/api/records	Create a financial record	admin, analyst
+GET	/api/records	Get all financial records	admin, analyst, viewer
+PUT	/api/records/:id	Update a record by ID	admin, analyst
+DELETE	/api/records/:id	Delete a record by ID	admin
+
+- Dashboard Routes
+Method	Endpoint	Description	Roles Allowed
+GET	/api/dashboard	Get summary statistics	admin, analyst, viewer
+Authorization
+All protected routes require JWT in the header:
+Authorization: Bearer <token>
+Access control is enforced via user roles.
+Notes
+PUT and DELETE operations require the record _id from the database.
+Swagger provides interactive testing for all endpoints.
+No unit tests are included in this version.
+Example JSON for Record
+
+POST /api/records
+
+{
+  "amount": 20000,
+  "type": "income",
+  "category": "salary",
+  "note": "April salary",
+  "date": "2026-04-04"
+}
+Dashboard Example Response
+{
+  "totalIncome": 40000,
+  "totalExpense": 15000,
+  "netBalance": 25000,
+  "categoryBreakdown": [
+    { "category": "salary", "total": 40000 },
+    { "category": "groceries", "total": 5000 },
+    { "category": "rent", "total": 10000 }
+  ]
+}
+
   
 Submission
 - GitHub Repository: https://github.com/Rani704/Finance-Data-Processing-and-Access-Control-Backend
